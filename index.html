@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fractal Fern Generator</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div class="info">
+        <h1>Construcción de Fractales: Una Hoja de Helecho</h1>
+        <div class="info_course">
+            <h2>Información</h2>
+            <ul>
+                <li><b>Institución:</b>
+                    Universidad Nacional de Colombia sede Medellín
+                </li>
+                <li><b>Asignatura:</b>
+                    Sistemas Complejos
+                </li>
+                <li><b>Profesor:</b>
+                    Carlos Jaime Franco Cardona
+                </li>
+                <li><b>Semestre:</b>
+                    2023-2
+                </li>
+            </ul>
+        </div>
+        <div class="info_students">
+            <h2>Equipo de trabajo</h2>
+            <ul>
+                <li>
+                    Andrés Felipe Aparicio Mestre -
+                    <a href="mailto:anapariciom@unal.edu.co">anapariciom@unal.edu.co</a>
+                </li>
+                <li>Emmanuel López Rodríguez -
+                    <a href="mailto:emlopezr@unal.edu.co">emlopezr@unal.edu.co</a>
+                </li>
+                <li>Maria Paula Duque Muñoz -
+                    <a href="mailto:maduquem@unal.edu.co">maduquem@unal.edu.co</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <main>
+        <canvas id="canvas" height="700" width="700"></canvas>
+        <div class="controls">
+            <h2>Controles</h2>
+            <div class="controls__inputs">
+                <div class="controls__inputs__row">
+                    <label for="fps">FPS</label>
+                    <input type="number" id="fps" value="1000" min="1" max="100">
+                </div>
+                <div class="controls__inputs__row">
+                    <label for="radio">Radio</label>
+                    <input type="number" id="radio" value="0.5" min="0.1" max="2">
+                </div>
+                <div class="controls__inputs__row">
+                    <label for="scale_x">Escala X</label>
+                    <input type="number" id="scale_x" value="6" min="1" max="10">
+                </div>
+                <div class="controls__inputs__row">
+                    <label for="scale_y">Escala Y</label>
+                    <input type="number" id="scale_y" value="12" min="1" max="15">
+                </div>
+            </div>
+
+            <div class="controls__types">
+                <label for="fern_type">Valores predefinidos</label>
+                <select name="fern_type" id="fern_type">
+                    <option value="barnsley">Barnsley</option>
+                    <option value="cyclosorus">Cyclosorus</option>
+                    <option value="culcita">Culcita</option>
+                </select>
+            </div>
+
+            <div class="matrix">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>w</th>
+                            <th>a</th>
+                            <th>b</th>
+                            <th>c</th>
+                            <th>d</th>
+                            <th>e</th>
+                            <th>f</th>
+                            <th>p</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>f1</th>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0.16</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0.01</td>
+                        </tr>
+                        <tr>
+                            <th>f2</th>
+                            <td>0.85</td>
+                            <td>0.04</td>
+                            <td>-0.04</td>
+                            <td>0.85</td>
+                            <td>0</td>
+                            <td>1.6</td>
+                            <td>0.85</td>
+                        </tr>
+                        <tr>
+                            <th>f3</th>
+                            <td>0.2</td>
+                            <td>-0.26</td>
+                            <td>0.23</td>
+                            <td>0.22</td>
+                            <td>0</td>
+                            <td>1.6</td>
+                            <td>0.07</td>
+                        </tr>
+                        <tr>
+                            <th>f4</th>
+                            <td>-0.15</td>
+                            <td>0.28</td>
+                            <td>0.26</td>
+                            <td>0.24</td>
+                            <td>0</td>
+                            <td>0.44</td>
+                            <td>0.07</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="buttons">
+                <button id="pause">Reproducir</button>
+                <button id="reset">Reiniciar</button>
+            </div>
+        </div>
+    </main>
+
+
+    </div>
+
+    <script type="module" src="js/code.js"></script>
+</body>
+
+</html>
