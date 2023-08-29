@@ -1,4 +1,4 @@
-import values from "./values.js"
+import values from "./values.js";
 
 let canvas, canvasContext;
 
@@ -14,8 +14,10 @@ const parameters = {
     scale_y: document.getElementById("scale_y"),
 };
 
+let probabilities = [0.01, 0.86, 0.93, 1];
 let paused = true;
-let x = 0, y = 0;
+let x = 0,
+    y = 0;
 
 const columnNames = ["a", "b", "c", "d", "e", "f", "p"];
 let matrix = {};
@@ -38,6 +40,10 @@ pauseButton.onclick = () => pause();
 resetButton.onclick = () => reset();
 valueSelector.onchange = () => reset();
 
+// Reiniciar la animación siempre que se cambie el valor de un input
+for (let key in matrix) matrix[key].onchange = () => reset(false);
+for (let key in parameters) parameters[key].onchange = () => reset(false);
+
 // Reproducir la animación en el canvas
 window.onload = function () {
     canvas = document.getElementById("canvas");
@@ -59,9 +65,9 @@ function update() {
     let r = Math.random();
 
     // Elegir la formula a usar
-    if (r < 0.01) formula = "f1";
-    else if (r < 0.86) formula = "f2";
-    else if (r < 0.93) formula = "f3";
+    if (r < probabilities[0]) formula = "f1";
+    else if (r < probabilities[1]) formula = "f2";
+    else if (r < probabilities[2]) formula = "f3";
     else formula = "f4";
 
     // Aplicar la formula
@@ -95,20 +101,38 @@ function drawCircle(centerX, centerY, radius, color) {
     canvasContext.fillStyle = color;
     canvasContext.arc(centerX, centerY, radius, 0, 2 * Math.PI, true);
     canvasContext.fill();
-};
+}
 
-function reset() {
+function reset(resetParams = true) {
     canvasContext.fillStyle = "#282424";
     canvasContext.fillRect(0, 0, canvas.width, canvas.height);
     x = 0;
     y = 0;
 
-    for (let key in matrix) {
-        matrix[key].value = values[valueSelector.value][key];
+    if (resetParams) {
+        for (let key in matrix) {
+            matrix[key].value = values[valueSelector.value][key];
+        }
+
+        parameters.scale_x.value = values[valueSelector.value].scale_x;
+        parameters.scale_y.value = values[valueSelector.value].scale_y;
     }
 
-    parameters.scale_x.value = values[valueSelector.value].scale_x;
-    parameters.scale_y.value = values[valueSelector.value].scale_y;
+    probabilities = [
+        values[valueSelector.value].f1_p,
+
+        values[valueSelector.value].f1_p +
+        values[valueSelector.value].f2_p,
+
+        values[valueSelector.value].f1_p +
+        values[valueSelector.value].f2_p +
+        values[valueSelector.value].f3_p,
+
+        values[valueSelector.value].f1_p +
+        values[valueSelector.value].f2_p +
+        values[valueSelector.value].f3_p +
+        values[valueSelector.value].f4_p,
+    ];
 }
 
 function pause() {
